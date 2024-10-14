@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Umur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1581850518616-bcb8077a2336?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9vZGxlfGVufDB8fDB8fHww'); /* Gambar background */
+            background-size: cover; /* Gambar memenuhi seluruh layar */
+            background-position: center; /* Gambar diposisikan di tengah */
+            background-repeat: no-repeat; /* Tidak mengulang gambar */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Warna putih semi transparan */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        label, input, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <label for="birthdate">Enter your birthdate:</label>
+        <input type="date" id="birthdate">
+        <button id="calculate">Calculate Age</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Event listener untuk tombol calculate
+        document.getElementById('calculate').addEventListener('click', function() {
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const today = new Date();
+
+            // Menghitung usia berdasarkan tanggal saat ini dan tanggal lahir
+            let age = today.getFullYear() - birthdate.getFullYear();
+            const monthDifference = today.getMonth() - birthdate.getMonth();
+
+            // Cek jika bulan atau tanggal lahir lebih besar dari bulan atau tanggal saat ini
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+
+            // Menampilkan hasil di dalam elemen result
+            const resultDiv = document.getElementById('result');
+            if (!isNaN(age) && age >= 0) {
+                resultDiv.innerHTML = `You are ${age} years old.`;
+
+                // Cek usia jika lebih dari 17 tahun, tampilkan alert
+                if (age > 17) {
+                    alert("Selamat kamu sudah dewasa, Jalankan kehidupan ini dengan hati yang kuat ya <3.");
+                }
+            } else {
+                resultDiv.innerHTML = 'Please enter a valid date.';
+            }
+        });
+
+        // Contoh penggunaan BOM: Menampilkan alert saat pengguna ingin meninggalkan halaman
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = 'Are you sure you want to leave? Your age is not saved!';
+        });
+    </script>
+
+</body>
+</html>
